@@ -1,18 +1,17 @@
-
 package capapresentacion;
 
 import capaaplicacion.RegistrarCitaServicio;
 import capadominio.Cita;
 import capadominio.Horario;
 import capadominio.Paciente;
-import capadominio.Medico;
+
 import java.awt.HeadlessException;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaRegistrarCita extends javax.swing.JDialog {
@@ -32,37 +31,41 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
           try {
             inicializarNuevacita();
         } catch (Exception e) {
-            // Manejo de excepciones al inicializar la cita
             JOptionPane.showMessageDialog(this, "Error al inicializar la cita", "Error", JOptionPane.ERROR_MESSAGE);
         }
         setLocationRelativeTo(null);
         
         
-                 // Agregar validación a los campos de texto
         txtcita_id.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                soloNumeros(evt);
-            }
-        });
-         
+        @Override
+               public void keyTyped(java.awt.event.KeyEvent evt) {
+        soloNumeros(evt);
+           }
+           });
+
         modelo.setColumnIdentifiers(nombreColumnas);
         try {
-            ArrayList<Horario> lista = registrarCitaServicio.mostrarHorario();
-                   
-            Object[][] datos = new Object[lista.size()][8];
-            for (int i = 0; i < lista.size(); i++) {
-                Horario x = lista.get(i);
-                datos[i][0] = x.getCodigo();
-                datos[i][1] = x.getFecha();
-                datos[i][2] = x.getHoraInicio();
-                datos[i][3] = x.getHoraFin();
-                datos[i][4] = x.getMedico_id();
-                datos[i][5] = x.getEstado();
-                datos[i][6] = x.getMedico_especialidad();
-                datos[i][7] = x.getTurno();
-            }
-            modelo.setDataVector(datos, nombreColumnas);
-            Tabla.setModel(modelo);
+            ArrayList<Horario> lista = (ArrayList<Horario>) registrarCitaServicio.mostrarHorario();
+        
+            
+            Object[][] horarioDatos = new Object[lista.size()][8];
+
+        for (int i = 0; i < lista.size(); i++) {
+    Horario x = lista.get(i);
+    horarioDatos[i][0] = x.getCodigo();
+    horarioDatos[i][1] = x.getFecha();
+    horarioDatos[i][2] = x.getHoraInicio();
+    horarioDatos[i][3] = x.getHoraFin();
+    horarioDatos[i][4] = x.getMedico_id();
+    horarioDatos[i][5] = x.getEstado();
+    horarioDatos[i][6] = x.getMedico_especialidad();
+    horarioDatos[i][7] = x.getTurno();
+}
+
+modelo.setDataVector(horarioDatos, nombreColumnas);
+Tabla.setModel(modelo);
+
+       
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
@@ -240,7 +243,7 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
 
         pagotarjeta.setText("Pago con Tarjeta");
 
-        cbpagotarje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Si", "No" }));
+        cbpagotarje.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
 
         javax.swing.GroupLayout costototalLayout = new javax.swing.GroupLayout(costototal);
         costototal.setLayout(costototalLayout);
@@ -288,7 +291,7 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
         filtro.setBackground(new java.awt.Color(204, 255, 255));
         filtro.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
 
-        cbespecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar..", "Medicina General", "Odontología", "Ginecologia", "Obstetricia", "Pediatria", "Cardiologia" }));
+        cbespecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Medicina General", "Odontología", "Ginecologia", "Obstetricia", "Pediatria", "Cardiologia" }));
 
         especialidad.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         especialidad.setText("Especialidad :");
@@ -347,13 +350,23 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
         Tabla.setToolTipText("");
         jScrollPane1.setViewportView(Tabla);
 
+        txtIDhorario.setEditable(false);
+
         codigohorario.setText("Id Horario");
+
+        txtfechaH.setEditable(false);
 
         fecha.setText("Fecha");
 
+        txtHora.setEditable(false);
+
         hora.setText("Hora");
 
+        txtIDmedicoH.setEditable(false);
+
         medicoid.setText("Id Medico");
+
+        txtTurno.setEditable(false);
 
         turno.setText("Turno");
 
@@ -503,7 +516,6 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
         registrarCitaServicio = new RegistrarCitaServicio();
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error al inicializar el servicio de registro de cita.", "Error", JOptionPane.ERROR_MESSAGE);
-        // Manejo de la excepción
     }
     }
      
@@ -541,11 +553,10 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
     }//GEN-LAST:event_btnBuscarPacienteActionPerformed
 
     private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        String especialidad=cbespecialidad.getSelectedItem().toString();
-        String pagotarjeta=cbpagotarje.getSelectedItem().toString();
-        int edadDelPaciente = cita.getPaciente().getEdadPaciente();
-        cita.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, pagotarjeta);
-        txtpago.setText(String.valueOf(cita.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, pagotarjeta)));
+    String selectedEspecialidad = cbespecialidad.getSelectedItem().toString();
+    String selectedPagoTarjeta = cbpagotarje.getSelectedItem().toString();
+    double costoCita = cita.calcularCostoEspecialidadPorTipoPago(selectedEspecialidad, selectedPagoTarjeta);
+    txtpago.setText(String.valueOf(costoCita));
     }//GEN-LAST:event_btnCalcularActionPerformed
    
     private void btnbuscarhorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarhorarioActionPerformed
@@ -555,7 +566,7 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
 
         modelo.setColumnIdentifiers(nombreColumnas);
         try {
-            ArrayList<Horario> lista = registrarCitaServicio.buscarHorario(especialidadDelMedico);
+            ArrayList<Horario> lista = (ArrayList<Horario>) registrarCitaServicio.buscarHorario(especialidadDelMedico);
             Object[][] datos = new Object[lista.size()][8];
             for (int i = 0; i < lista.size(); i++) {
                 Horario x = lista.get(i);
@@ -605,12 +616,12 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
     }
          
        private void capturarDatosDelacita() throws NumberFormatException {
-        cita.setCodigocita(txtcita_id.getText().trim());
-        cita.setEstado_cita(txtxestadocita.getText().trim());
+        cita.setCodigoCita(txtcita_id.getText().trim());
+        cita.setEstadoCita(txtxestadocita.getText().trim());
         cita.setHoraCita(txtHora.getText().trim());
-        cita.setIdhorarioDeCita(txtIDhorario.getText().trim());
+        cita.setIdHorarioDeCita(txtIDhorario.getText().trim());
         cita.setFechaCita(txtfechaH.getText().trim());
-        cita.setIdmedicoCita(txtIDmedicoH.getText().trim());
+        cita.setIdMedicoCita(txtIDmedicoH.getText().trim());
         cita.setTurnoCita(txtTurno.getText().trim());
         cita.setPagoCita(Double.parseDouble(txtpago.getText().trim()));
         
@@ -628,51 +639,38 @@ public class VentanaRegistrarCita extends javax.swing.JDialog {
    
        
        
-        public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        Cita cita = new Cita();
-        Paciente paciente = new Paciente();
-        Medico medico = new Medico();
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+   public static void main(String[] args) {
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VentanaRegistrarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VentanaRegistrarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VentanaRegistrarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        }
+    } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(VentanaRegistrarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    }
+
+    java.awt.EventQueue.invokeLater(() -> {
+        VentanaRegistrarCita dialog = null;
+        try {
+            dialog = new VentanaRegistrarCita(new javax.swing.JFrame(), true);
+        } catch (Exception ex) {
             java.util.logging.Logger.getLogger(VentanaRegistrarCita.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                VentanaRegistrarCita dialog = null;
-                try {
-                    dialog = new VentanaRegistrarCita(new javax.swing.JFrame(), true);
-                } catch (Exception ex) {
-                    Logger.getLogger(VentanaRegistrarCita.class.getName()).log(Level.SEVERE, null, ex);
+        if (dialog != null) {
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
                 }
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+            });
+            dialog.setVisible(true);
+        } else {
+            System.err.println("Dialog is null!");
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Tabla;

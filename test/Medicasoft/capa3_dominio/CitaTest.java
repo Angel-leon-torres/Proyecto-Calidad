@@ -17,7 +17,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 4.5;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -28,7 +28,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 0;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -41,7 +41,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 94.5;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -52,7 +52,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 90;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
        
     }
@@ -65,7 +65,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 4;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -76,7 +76,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 0;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -89,7 +89,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 84;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -101,7 +101,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 80;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -114,7 +114,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 2.5;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -125,7 +125,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 0;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -138,7 +138,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 52.5;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -149,7 +149,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 50;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -162,7 +162,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 5;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -173,7 +173,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 0;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -186,7 +186,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 105;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -197,7 +197,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 100;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -210,7 +210,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 5.5;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -221,7 +221,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 0;
-        double result = instance.calcularcomisionporespecialidad(especialidad, tarjeta);
+        double result = instance.calcularComisionPorEspecialidad(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -234,7 +234,7 @@ public class CitaTest {
         String tarjeta = "Si";
         Cita instance = new Cita();
         double expResult = 115.5;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }
@@ -245,7 +245,7 @@ public class CitaTest {
         String tarjeta = "No";
         Cita instance = new Cita();
         double expResult = 110;
-        double result = instance.calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(especialidad, tarjeta);
+        double result = instance.calcularCostoEspecialidadPorTipoPago(especialidad, tarjeta);
         assertEquals(expResult, result, 0.0);
         
     }

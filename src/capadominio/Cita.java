@@ -1,50 +1,42 @@
 package capadominio;
-import capadominio.Paciente;
-import capadominio.Medico;
-import capapresentacion.VentanaRegistrarCita;
-import java.util.List;
 import javax.swing.JOptionPane;
 public class Cita {
-
-    private String codigocita;
-    private String estado_cita;
+    private String codigoCita;
+    private String estadoCita;
     private Paciente paciente;
     private Medico medico;
     private Horario horario;
     private String horaCita;
-    private String idhorarioDeCita;
+    private String idHorarioDeCita;
     private String fechaCita;
-    private String idmedicoCita;
+    private String idMedicoCita;
     private String turnoCita;
     private double pagoCita;
-    private double costoCita=0.0;
-    private double comisionCita=0.0;
-    public Cita() {
+    private double costoCita = 0.0;
+    private double comisionCita = 0.0;
 
-    }
+    public Cita() {}
 
-    public Cita(String codigocita, String estado_cita, Paciente paciente, Medico medico, Horario horario, String horaCita, String idhorarioDeCita, String fechaCita, String idmedicoCita, String turnoCita, double pagoCita) {
-        this.codigocita = codigocita;
-        this.estado_cita = estado_cita;
+    public Cita(String codigoCita, String estadoCita, Paciente paciente, Medico medico, Horario horario, String horaCita, String idHorarioDeCita, String fechaCita, String idMedicoCita, String turnoCita, double pagoCita) {
+        this.codigoCita = codigoCita;
+        this.estadoCita = estadoCita;
         this.paciente = paciente;
         this.medico = medico;
         this.horario = horario;
         this.horaCita = horaCita;
-        this.idhorarioDeCita = idhorarioDeCita;
+        this.idHorarioDeCita = idHorarioDeCita;
         this.fechaCita = fechaCita;
-        this.idmedicoCita = idmedicoCita;
+        this.idMedicoCita = idMedicoCita;
         this.turnoCita = turnoCita;
         this.pagoCita = pagoCita;
     }
 
-   
-
-    public String getIdhorarioDeCita() {
-        return idhorarioDeCita;
+    public String getIdHorarioDeCita() {
+        return idHorarioDeCita;
     }
 
-    public void setIdhorarioDeCita(String idhorarioDeCita) {
-        this.idhorarioDeCita = idhorarioDeCita;
+    public void setIdHorarioDeCita(String idHorarioDeCita) {
+        this.idHorarioDeCita = idHorarioDeCita;
     }
 
     public String getFechaCita() {
@@ -55,12 +47,12 @@ public class Cita {
         this.fechaCita = fechaCita;
     }
 
-    public String getIdmedicoCita() {
-        return idmedicoCita;
+    public String getIdMedicoCita() {
+        return idMedicoCita;
     }
 
-    public void setIdmedicoCita(String idmedicoCita) {
-        this.idmedicoCita = idmedicoCita;
+    public void setIdMedicoCita(String idMedicoCita) {
+        this.idMedicoCita = idMedicoCita;
     }
 
     public String getTurnoCita() {
@@ -71,8 +63,6 @@ public class Cita {
         this.turnoCita = turnoCita;
     }
 
-    
-
     public String getHoraCita() {
         return horaCita;
     }
@@ -81,22 +71,20 @@ public class Cita {
         this.horaCita = horaCita;
     }
 
-   
-
-    public String getCodigocita() {
-        return codigocita;
+    public String getCodigoCita() {
+        return codigoCita;
     }
 
-    public void setCodigocita(String codigocita) {
-        this.codigocita = codigocita;
+    public void setCodigoCita(String codigoCita) {
+        this.codigoCita = codigoCita;
     }
 
-    public String getEstado_cita() {
-        return estado_cita;
+    public String getEstadoCita() {
+        return estadoCita;
     }
 
-    public void setEstado_cita(String estado_cita) {
-        this.estado_cita = estado_cita;
+    public void setEstadoCita(String estadoCita) {
+        this.estadoCita = estadoCita;
     }
 
     public Paciente getPaciente() {
@@ -131,65 +119,60 @@ public class Cita {
         this.pagoCita = pagoCita;
     }
 
-    public double getCostoCita() {
+    public double calcularCostoEspecialidadPorTipoPago(String especialidad, String tarjeta) {
+        double comisionPorTarjeta = 0.0, costoEspecialidad = 0.0;
+
+        switch (especialidad.toLowerCase()) {
+            case "medicina general":
+                costoEspecialidad = 90;
+                break;
+            case "pediatria":
+                costoEspecialidad = 80;
+                break;
+            case "obstetricia":
+                costoEspecialidad = 50;
+                break;
+            case "ginecologia":
+                costoEspecialidad = 100;
+                break;
+            case "odontologia":
+                costoEspecialidad = 110;
+                break;
+            default:
+                JOptionPane.showMessageDialog(null, "Especialidad no encontrada", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+
+        if (tarjeta.equalsIgnoreCase("Si")) {
+            comisionPorTarjeta = 0.05 * costoEspecialidad;
+        }
+
+        costoCita = comisionPorTarjeta + costoEspecialidad;
         return costoCita;
     }
 
-    public void setCostoCita(double costoCita) {
-        this.costoCita = costoCita;
-    }
+    public double calcularComisionPorEspecialidad(String especialidad, String tarjeta) {
+        double costoEspecialidad = 0.0;
 
-    public double getComisionCita() {
-        return comisionCita;
-    }
+        switch (especialidad.toLowerCase()) {
+            case "medicina general":
+                costoEspecialidad = 90;
+                break;
+            case "pediatria":
+                costoEspecialidad = 80;
+                break;
+            case "obstetricia":
+                costoEspecialidad = 50;
+                break;
+            case "ginecologia":
+                costoEspecialidad = 100;
+                break;
+            case "odontologia":
+                costoEspecialidad = 110;
+                break;
+        }
 
-    public void setComisionCita(double comisionCita) {
-        this.comisionCita = comisionCita;
-    }
+        if (tarjeta.equalsIgnoreCase("Si")) {
+            comisionCita = 0.05 * costoEspecialidad;
+        }
 
-
-     public double calcularElCostoDelTipoDeEspecialidadPorElTipoDePago(String especialidad, String tarjeta) {
-     double comisionportarjeta=0.0, COSTOESPECIALIDAD=0.0;
-  
-     if (especialidad.equals("Medicina General")) {
-            COSTOESPECIALIDAD = 90;
-        } else if (especialidad.equals("Pediatria")) {
-            COSTOESPECIALIDAD = 80;
-        } else if (especialidad.equals("Obstetricia")) {
-            COSTOESPECIALIDAD = 50;
-        } else if (especialidad.equals("Ginecologia")) {
-            COSTOESPECIALIDAD = 100;
-        } else if (especialidad.equals("Odontología")){
-            COSTOESPECIALIDAD = 110;
-        } else  JOptionPane.showMessageDialog(null, "Error al calcular el costo total", "Advertenia", JOptionPane.WARNING_MESSAGE);
-    
-     if (tarjeta.equals("Si")) {
-            comisionportarjeta = 0.05*COSTOESPECIALIDAD;
-        } 
-      costoCita=comisionportarjeta+COSTOESPECIALIDAD;
-          return costoCita;
-         
-      }
-     public double calcularcomisionporespecialidad(String especialidad, String tarjeta)  {
-     double  COSTOESPECIALIDAD=0.0;
-     if (especialidad.equals("Medicina General")) {
-            COSTOESPECIALIDAD = 90;
-        } else if (especialidad.equals("Pediatria")) {
-            COSTOESPECIALIDAD = 80;
-        } else if (especialidad.equals("Obstetricia")) {
-            COSTOESPECIALIDAD = 50;
-        } else if (especialidad.equals("Ginecologia")) {
-            COSTOESPECIALIDAD = 100;
-        } else if (especialidad.equals("Odontologia")){
-            COSTOESPECIALIDAD = 110;
-        } 
-     if (tarjeta.equals("Si")) 
-            comisionCita = 0.05*COSTOESPECIALIDAD;
-        
-      
-          return comisionCita;
-         
-      }
-      
-   
-}//end Cita
+       

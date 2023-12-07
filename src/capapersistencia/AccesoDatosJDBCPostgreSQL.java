@@ -8,7 +8,7 @@ public class AccesoDatosJDBCPostgreSQL extends AccesoDatosJDBC {
     @Override
     public void abrirConexion() throws ConexionException {
         try {
-            String url = "jdbc:postgresql://localhost:5432/proyecto";
+            String url = "jdbc:postgresql://localhost:5432/G02_basefinal";
             String password = System.getenv("DB_PASSWORD");
             System.out.println("Password from environment: " + password);
           conexion = DriverManager.getConnection(url, "postgres", password);

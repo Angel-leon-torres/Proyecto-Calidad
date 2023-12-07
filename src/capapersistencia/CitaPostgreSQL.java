@@ -22,20 +22,20 @@ public class CitaPostgreSQL {
         try {
         // Guardar la cita
         PreparedStatement sentenciaInsertCita = accesoDatosJDBC.prepararSentencia(insertCitaSQL);
-        sentenciaInsertCita.setString(1, cita.getCodigocita());
-        sentenciaInsertCita.setString(2, cita.getEstado_cita());
+        sentenciaInsertCita.setString(1, cita.getCodigoCita());
+        sentenciaInsertCita.setString(2, cita.getEstadoCita());
         sentenciaInsertCita.setString(3, cita.getPaciente().getDNIPaciente());
-        sentenciaInsertCita.setString(4, cita.getIdhorarioDeCita());
+        sentenciaInsertCita.setString(4, cita.getIdHorarioDeCita());
         sentenciaInsertCita.setString(5, cita.getFechaCita());
         sentenciaInsertCita.setString(6, cita.getHoraCita());
-        sentenciaInsertCita.setString(7, cita.getIdmedicoCita());
+        sentenciaInsertCita.setString(7, cita.getIdMedicoCita());
         sentenciaInsertCita.setString(8, cita.getTurnoCita());
         sentenciaInsertCita.setDouble(9, cita.getPagoCita());
         sentenciaInsertCita.executeUpdate();
         
         // Desactivar estado en la tabla horario
         PreparedStatement sentenciaUpdateHorario = accesoDatosJDBC.prepararSentencia(updateHorarioSQL);
-        sentenciaUpdateHorario.setString(1, cita.getIdhorarioDeCita());
+        sentenciaUpdateHorario.setString(1, cita.getIdHorarioDeCita());
         sentenciaUpdateHorario.executeUpdate();
         
     } catch (SQLException e) {
